@@ -175,4 +175,66 @@ public class Car {
             return (int) (getMaxSpeed() * theMostWornWheel.getWheelState());
         }
     }
+
+    public static class CarBuilder {
+        private LocalDate releaseDate;
+        private String engineType;
+        private int maxSpeed;
+        private double accelerationTo100;
+        private int numberOfSeats;
+        private int currentNumberOfPassengers;
+        private int currentSpeed;
+        private ArrayList<CarDoor> carDoors;
+        private ArrayList<CarWheel> carWheels;
+
+        public CarBuilder setReleaseDate(LocalDate releaseDate) {
+            this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public CarBuilder setEngineType(String engineType) {
+            this.engineType = engineType;
+            return this;
+        }
+
+        public CarBuilder setMaxSpeed(int maxSpeed) {
+            this.maxSpeed = maxSpeed;
+            return this;
+        }
+
+        public CarBuilder setAccelerationTo100(double accelerationTo100) {
+            this.accelerationTo100 = accelerationTo100;
+            return this;
+        }
+
+        public CarBuilder setNumberOfSeats(int numberOfSeats) {
+            this.numberOfSeats = numberOfSeats;
+            return this;
+        }
+
+        public CarBuilder setCurrentNumberOfPassengers(int currentNumberOfPassengers) {
+            this.currentNumberOfPassengers = currentNumberOfPassengers;
+            return this;
+        }
+
+        public CarBuilder setCurrentSpeed(int currentSpeed) {
+            this.currentSpeed = currentSpeed;
+            return this;
+        }
+
+        public CarBuilder setCarDoors(ArrayList<CarDoor> carDoors) {
+            this.carDoors = carDoors;
+            return this;
+        }
+
+        public CarBuilder setCarWheels(ArrayList<CarWheel> carWheels) {
+            this.carWheels = carWheels;
+            return this;
+        }
+
+        public Car build() {
+            return new Car(releaseDate, engineType, maxSpeed, accelerationTo100, numberOfSeats,
+                    currentNumberOfPassengers, currentSpeed, carDoors, carWheels);
+        }
+    }
 }
