@@ -1,23 +1,46 @@
 package carproject.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Car {
-    private final LocalDate releaseDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long carId;
+    @Column(updatable = false)
+    private LocalDate releaseDate;
     private String engineType;
     private int maxSpeed;
     private double accelerationTo100;
     private int numberOfSeats;
     private int currentNumberOfPassengers;
     private int currentSpeed;
-    private ArrayList<CarDoor> carDoors;
-    private ArrayList<CarWheel> carWheels;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<CarDoor> carDoors;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<CarWheel> carWheels;
 
-    public Car(LocalDate releaseDate, String engineType, int maxSpeed, double accelerationTo100,
-               int numberOfSeats, int currentNumberOfPassengers, int currentSpeed,
-               ArrayList<CarDoor> carDoors, ArrayList<CarWheel> carWheels) {
+    public Car() {
+    }
+
+    public Car(LocalDate releaseDate, String engineType, int maxSpeed,
+               double accelerationTo100, int numberOfSeats, int currentNumberOfPassengers,
+               int currentSpeed, List<CarDoor> carDoors, List<CarWheel> carWheels) {
         this.releaseDate = releaseDate;
         this.engineType = engineType;
         this.maxSpeed = maxSpeed;
@@ -27,6 +50,10 @@ public class Car {
         this.currentSpeed = currentSpeed;
         this.carDoors = carDoors;
         this.carWheels = carWheels;
+    }
+
+    public long getCarId() {
+        return carId;
     }
 
     public LocalDate getReleaseDate() {
@@ -81,19 +108,19 @@ public class Car {
         this.currentSpeed = currentSpeed;
     }
 
-    public ArrayList<CarDoor> getCarDoors() {
+    public List<CarDoor> getCarDoors() {
         return carDoors;
     }
 
-    public void setCarDoors(ArrayList<CarDoor> carDoors) {
+    public void setCarDoors(List<CarDoor> carDoors) {
         this.carDoors = carDoors;
     }
 
-    public ArrayList<CarWheel> getCarWheels() {
+    public List<CarWheel> getCarWheels() {
         return carWheels;
     }
 
-    public void setCarWheels(ArrayList<CarWheel> carWheels) {
+    public void setCarWheels(List<CarWheel> carWheels) {
         this.carWheels = carWheels;
     }
 
@@ -157,7 +184,7 @@ public class Car {
     }
 
     public void addNewWheels(int numberOfNewWheels) {
-        ArrayList<CarWheel> currentWheels = getCarWheels();
+        List<CarWheel> currentWheels = getCarWheels();
         while (numberOfNewWheels != 0) {
             currentWheels.add(new CarWheel(1));
             numberOfNewWheels--;
@@ -184,8 +211,8 @@ public class Car {
         private int numberOfSeats;
         private int currentNumberOfPassengers;
         private int currentSpeed;
-        private ArrayList<CarDoor> carDoors;
-        private ArrayList<CarWheel> carWheels;
+        private List<CarDoor> carDoors;
+        private List<CarWheel> carWheels;
 
         public CarBuilder setReleaseDate(LocalDate releaseDate) {
             this.releaseDate = releaseDate;
@@ -222,12 +249,12 @@ public class Car {
             return this;
         }
 
-        public CarBuilder setCarDoors(ArrayList<CarDoor> carDoors) {
+        public CarBuilder setCarDoors(List<CarDoor> carDoors) {
             this.carDoors = carDoors;
             return this;
         }
 
-        public CarBuilder setCarWheels(ArrayList<CarWheel> carWheels) {
+        public CarBuilder setCarWheels(List<CarWheel> carWheels) {
             this.carWheels = carWheels;
             return this;
         }

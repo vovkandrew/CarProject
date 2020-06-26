@@ -1,10 +1,30 @@
 package carproject.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class CarWheel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long wheelId;
     private double wheelState;
+
+    public CarWheel() {
+    }
 
     public CarWheel(double wheelState) {
         this.wheelState = wheelState;
+    }
+
+    public long getWheelId() {
+        return wheelId;
+    }
+
+    public void setWheelId(long wheelId) {
+        this.wheelId = wheelId;
     }
 
     public double getWheelState() {
@@ -31,7 +51,9 @@ public class CarWheel {
     @Override
     public String toString() {
         return "CarWheel{"
-                + "wheelState="
+                + "wheelID="
+                + wheelId
+                + ", wheelState="
                 + wheelState
                 + '}';
     }
