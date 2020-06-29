@@ -42,13 +42,13 @@ public class CarDaoImpl implements CarDao {
     @Override
     public Car findById(Long id) {
         try (Session session = factory.openSession()) {
-            Query query = session.createQuery("select distinct c from Car c " +
-                    "left join fetch c.carDoors where c.id = :id");
+            Query query = session.createQuery("select distinct c from Car c "
+                    + "left join fetch c.carDoors where c.id = :id");
             query.setParameter("id", id);
             query.setHint(QueryHints.PASS_DISTINCT_THROUGH, false);
             Car car = (Car) query.uniqueResult();
-            Query query2 = session.createQuery("select distinct c from Car c " +
-                    "left join fetch c.carWheels where c in :car");
+            Query query2 = session.createQuery("select distinct c from Car c "
+                    + "left join fetch c.carWheels where c in :car");
             query2.setParameter("car", car);
             query2.setHint(QueryHints.PASS_DISTINCT_THROUGH, false);
             car = (Car) query2.uniqueResult();

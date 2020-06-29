@@ -13,7 +13,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@ComponentScan(basePackages = {"carproject.dao", "carproject.service"})
+@ComponentScan(basePackages = {"carproject.dao", "carproject.service", "carproject.mapper"})
 public class AppConfig {
     @Autowired
     private Environment environment;
