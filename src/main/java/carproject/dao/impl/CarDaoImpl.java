@@ -42,9 +42,6 @@ public class CarDaoImpl implements CarDao {
     @Override
     public Car findById(Long id) {
         try (Session session = factory.openSession()) {
-            /*Query query = session.createQuery("select distinct c from Car c left " +
-                    "join fetch c.carWheels CarWheels " +
-                    "left join fetch c.carDoors CarDoors where c.id = :id");*/
             Query query = session.createQuery("select distinct c from Car c " +
                     "left join fetch c.carDoors where c.id = :id");
             query.setParameter("id", id);
