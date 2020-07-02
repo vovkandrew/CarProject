@@ -6,6 +6,7 @@ import carproject.model.CarWheel;
 import carproject.service.CarWheelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,15 +21,15 @@ public class CarWheelController {
     @Autowired
     private WheelMapper wheelMapper;
 
-    @PostMapping("/add")
+    @PostMapping("/new")
     public WheelResponseDto add(@RequestParam double wheelState) {
         CarWheel wheel = new CarWheel(wheelState);
         carWheelService.add(wheel);
         return wheelMapper.getWheelResponseDtoFromCarWheel(wheel);
     }
 
-    @GetMapping("/find-by-id")
-    public WheelResponseDto findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public WheelResponseDto findById(@PathVariable Long id) {
         CarWheel wheel = carWheelService.findById(id);
         return wheelMapper.getWheelResponseDtoFromCarWheel(wheel);
     }
