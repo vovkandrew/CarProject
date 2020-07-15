@@ -30,7 +30,7 @@ public class CarController {
     @Autowired
     private CarMapper carMapper;
 
-    @PostMapping("/new")
+    @PostMapping("/")
     public CarResponseDto add(@RequestBody CarRequestDto car) {
         Car newCar = carMapper.getCarFromCarRequestDto(car);
         newCar.getCarWheels().stream().map(wheel -> carWheelService.add(wheel));
