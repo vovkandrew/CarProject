@@ -1,21 +1,44 @@
 package carproject.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class CarDoor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long doorId;
+    @Enumerated(value = EnumType.STRING)
     private DoorState doorState;
-
-    public enum DoorState {
-        OPEN, CLOSED
-    }
-
+    @Enumerated(value = EnumType.STRING)
     private WindowState windowState;
 
     public enum WindowState {
         OPEN, CLOSED
     }
 
+    public enum DoorState {
+        OPEN, CLOSED
+    }
+
+    public CarDoor() {
+    }
+
     public CarDoor(DoorState doorState, WindowState windowState) {
         this.doorState = doorState;
         this.windowState = windowState;
+    }
+
+    public long getDoorId() {
+        return doorId;
+    }
+
+    public void setDoorId(long doorId) {
+        this.doorId = doorId;
     }
 
     public DoorState getDoorState() {
